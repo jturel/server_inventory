@@ -7,8 +7,9 @@ module Api
         :ip
       ]
 
+      before_action :check_empty_params
+
       def create
-        host_params = params.permit(*HOST_PARAMS)
         server = Server.create!(host_params)
 
         render json: server
@@ -16,9 +17,19 @@ module Api
 
       def update
         server = Server.find(params[:id])
-        server.update!(params.permit(*HOST_PARAMS))
+        server.update!(host_params)
 
         render json: server
+      end
+
+      private
+
+      def host_params
+        @host_params ||= params.permit(*HOST_PARAMS)
+      end
+
+      def check_empty_params
+        raise ActionController::BadRequest, "Did you forget to send some parameters" if host_params.keys.empty?
       end
     end
   end

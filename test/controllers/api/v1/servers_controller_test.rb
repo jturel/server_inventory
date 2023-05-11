@@ -7,7 +7,6 @@ module Api
       def test_update
         existing = servers(:one)
 
-
         attrs = existing.attributes.
           slice(*Api::V1::ServersController::HOST_PARAMS).
           merge('hostname' => 'one-updated.example.com')
@@ -18,12 +17,24 @@ module Api
         assert Server.find_by(attrs)
       end
 
+      def test_update_no_params
+        put api_v1_server_path(servers(:one)), params: {}
+
+        assert_response :bad_request
+      end
+
       def test_create
         attrs = { hostname: 'new.example.com', os: 'Ubuntu 18.04', ip: '24.254.190.1' } 
         post api_v1_servers_path, params: attrs
 
         assert_response :ok
         assert Server.find_by(attrs)
+      end
+
+      def test_create_no_params
+        post api_v1_servers_path, params: {}
+
+        assert_response :bad_request
       end
     end
   end
