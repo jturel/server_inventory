@@ -1,11 +1,17 @@
 class NotifyServerSubscribersJob < ApplicationJob
 
-  def perform(repo = ServerSubscribersRepository.new)
+  def perform(model_class, attributes, event, repo = ServerSubscribersRepository.new)
+    event = Webhooks::Event.new(
+      payload: attributes,
+      event: "#{model_class.name.demodulize.downcase}.#{event}"
+    )
 
-    repo.subscribers.each do |subscriber|
-      Rails.logger.info "notifying #{subscriber}"
-    end
+    notifier = Webhooks::Notifier.new(
+      subscribers: repo.subscribers,
+      event: event
+    )
 
+    notifier.notify_subscribers
   end
 
 end

@@ -4,6 +4,6 @@ class ServerSubscribersRepository
   end
 
   def subscribers
-    @subscribers
+    @subscribers.map { |s| Webhooks::Subscriber.new(url: s['url']) }
   end
 end
