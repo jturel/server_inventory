@@ -4,8 +4,12 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  hostname: 'one.example.com'
+  os: 'Fedora 34'
+  ip: '192.168.100.20'
+
+two:
+  hostname: 'two.example.com'
+  os: 'Ubuntu 18.04'
+  ip: '192.168.100.21'
