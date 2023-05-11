@@ -1,10 +1,11 @@
 module Webhooks
   class Subscriber
 
-    attr_reader :url
+    attr_reader :url, :key
 
-    def initialize(url:)
+    def initialize(url:, key:)
       @url = url
+      @key = key
     end
 
   end

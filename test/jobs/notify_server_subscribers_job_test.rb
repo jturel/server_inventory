@@ -7,10 +7,11 @@ class NotifyServerSubscribersTest < ActiveSupport::TestCase
 
   def setup
     @url = 'http://example.com/webhooks'
+    @Key = "2ee3506e-e0ce-46d1-a8c8-2de606db6915"
     @attrs = { "something": "else" }
     @repo = OpenStruct.new(
       subscribers: [
-        Webhooks::Subscriber.new(url: @url)
+        Webhooks::Subscriber.new(url: @url, key: @key)
       ]
     )
   end

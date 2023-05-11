@@ -1,3 +1,7 @@
 ---
 - url: http://example.com
+  key: 8aadc51d-61cb-4681-b5a7-c67ea0f02f1b
 - url: https://webhook.site/d7ac9794-7e7d-4535-aeb8-b6ccf0c58ba9
+  key: 612474ab-5c35-4a3a-9324-ef2b8d57685b
+- url: https://fake.web/
+  key: nothing

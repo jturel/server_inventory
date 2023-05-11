@@ -19,17 +19,22 @@ module Webhooks
             url: subscriber.url,
             payload: json,
             headers: {
-              'X-Webhook-Signature' => SecureRandom.uuid,
+              'X-Webhook-Signature' => signature(subscriber.key, json),
               'User-Agent' => 'server_inventory/1.0',
               'Content-type' => Mime[:json]
             }
           )
         rescue => e
-          Rails.logger.error("Error while notifying")
-          Rails.logger.error(e.message)
+          Rails.logger.error("Error while notifying #{subscriber.url} error=#{e.message}")
         end
 
       end
+    end
+
+    private
+
+    def signature(key, payload)
+      OpenSSL::HMAC.hexdigest("SHA256", key, payload.to_json)
     end
 
   end
