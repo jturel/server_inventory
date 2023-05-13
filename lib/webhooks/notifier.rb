@@ -33,8 +33,8 @@ module Webhooks
 
     private
 
-    def signature(key, payload)
-      OpenSSL::HMAC.hexdigest("SHA256", key, payload.to_json)
+    def signature(key, payload_string)
+      OpenSSL::HMAC.hexdigest("SHA256", key, payload_string)
     end
 
   end
