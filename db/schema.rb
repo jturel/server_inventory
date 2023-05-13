@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_020938) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_164157) do
   create_table "servers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hostname", null: false
     t.string "os", null: false
     t.string "ip", null: false
+    t.integer "ram_mb"
     t.index ["hostname"], name: "index_servers_on_hostname"
   end
 
