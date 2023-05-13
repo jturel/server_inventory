@@ -4,7 +4,8 @@ module Api
       HOST_PARAMS = [
         'hostname',
         'os',
-        'ip'
+        'ip',
+        'ram_mb'
       ].freeze
 
       before_action :check_params
