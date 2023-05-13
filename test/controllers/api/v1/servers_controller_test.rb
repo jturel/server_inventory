@@ -18,9 +18,15 @@ module Api
       end
 
       def test_update_no_params
-        put api_v1_server_path(servers(:one)), params: {}
+        put api_v1_server_path(servers(:one)), params: { "hostname": "" }
 
-        assert_response :bad_request
+        assert_response :unprocessable_entity
+      end
+
+      def test_update_unknown_host
+        put api_v1_server_path(0)
+
+        assert_response :not_found
       end
 
       def test_create
@@ -34,7 +40,7 @@ module Api
       def test_create_no_params
         post api_v1_servers_path, params: {}
 
-        assert_response :bad_request
+        assert_response :unprocessable_entity
       end
     end
   end

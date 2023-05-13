@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::API
-  rescue_from ActionController::BadRequest, with: :bad_request
+  rescue_from StandardError do |error|
+    render json: { error: error.message }, status: :internal_server_error
+  end
 
-  def bad_request(error)
-    render json: { error: error.message }, status: :bad_request
+  rescue_from ActiveRecord::RecordInvalid do |error|
+    render json: { error: error.message }, status: :unprocessable_entity
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |error|
+    render json: { error: error.message }, status: :not_found
   end
 end
